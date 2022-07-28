@@ -650,7 +650,7 @@
                             if (willDelete) {
 
                                 axios
-                                    .delete('/api/instituicao/utentes/' + this.utente.id)
+                                    .delete('/api/utentes/' + this.utente.id)
                                     .then(({
                                         data
                                     }) => {
@@ -726,7 +726,7 @@
 
 
                                 axios
-                                    .post('/api/utentes', {
+                                    .post('/api/instituicao/utentes', {
                                         data: utente,
 
                                     })
@@ -759,7 +759,7 @@
                                 console.log(error)
 
                                 axios
-                                    .post('/api/utentes', {
+                                    .post('/api/instituicao/utentes', {
                                         data: utente,
 
                                     })
@@ -785,7 +785,7 @@
                             });
                     } else {
                         axios
-                            .post('/api/utentes', {
+                            .post('/api/instituicao/utentes', {
                                 data: utente,
 
                             })
