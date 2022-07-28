@@ -300,7 +300,7 @@
                                                     </div>
 
                                                     <div class="card-footer text-right">
-                                                        <button @click="userUpdate($event)" class="btn btn-primary">Salva</button>
+                                                        <button @click="userUpdate($event)" class="btn btn-primary">Salvar</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -623,7 +623,7 @@
 
 
                                 axios
-                                    .put('/api/users/' + this.user.id, {
+                                    .put('/api/instituicao/users/' + this.user.id, {
                                         data: {
                                             email: this.user.email,
                                             username: this.user.username,
@@ -656,7 +656,7 @@
                             }).catch(error => {
 
                                 axios
-                                    .put('/api/users/' + this.user.id, {
+                                    .put('/api/instituicao/users/' + this.user.id, {
                                         data: {
                                             email: this.user.email,
                                             username: this.user.username,
@@ -690,7 +690,7 @@
 
 
                         axios
-                            .put('/api/users/' + this.user.id, {
+                            .put('/api/instituicao/users/' + this.user.id, {
                                 data: {
                                     email: this.user.email,
                                     username: this.user.username,
