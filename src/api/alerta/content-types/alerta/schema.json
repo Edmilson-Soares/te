@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alertas",
+  "info": {
+    "singularName": "alerta",
+    "pluralName": "alertas",
+    "displayName": "alerta",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "instituicao": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::intituicao.intituicao",
+      "inversedBy": "alertas"
+    },
+    "utentes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::utente.utente",
+      "mappedBy": "alerta"
+    },
+    "testes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "alerta"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "tempo_start": {
+      "type": "json"
+    },
+    "tempo_end": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testes",
+  "info": {
+    "singularName": "teste",
+    "pluralName": "testes",
+    "displayName": "teste",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "acerto": {
+      "type": "integer"
+    },
+    "erro": {
+      "type": "integer"
+    },
+    "nteste": {
+      "type": "integer"
+    },
+    "p_acerto": {
+      "type": "decimal"
+    },
+    "ferramenta": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ferramenta.ferramenta",
+      "inversedBy": "testes"
+    },
+    "utente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "testes"
+    },
+    "utente_f1": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_1"
+    },
+    "utente_f2": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_2"
+    },
+    "utente_f3": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_3"
+    },
+    "utente_f4": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_4"
+    },
+    "utente_f5": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_5"
+    },
+    "utente_f6": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_6"
+    },
+    "utente_f7": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_7"
+    },
+    "utente_f9": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_9"
+    },
+    "utente_f10": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_10"
+    },
+    "utente_11": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_11"
+    },
+    "tempo": {
+      "type": "integer"
+    },
+    "f": {
+      "type": "string"
+    },
+    "alerta": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::alerta.alerta",
+      "inversedBy": "testes"
+    }
+  }
+}

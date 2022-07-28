@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>AddedSolutions</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel='shortcut icon' type='image/png' href='/assets/img/AddedSolutions.jpg' />
+    <link rel="stylesheet" href="/assets/bundles/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+                            <img src="<%= user.intituicao_tecnico.logo.url %>" style="width: 100%;height: 40px;"  alt="" srcset="">
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+
+                                <%= user.intituicao_tecnico.nome %>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<%= user.foto?user.foto[0].url:'/assets/img/logo.png' %> "
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+                            <div class="dropdown-title">Olá
+                                <%= user.username %>
+                            </div>
+                            <a href="/instituicao/tecnico/perfil" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> Perfil
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/auth/logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/"> <img alt="image" src="/assets/img/AddedSolutions.jpg" class="header-logo" /> <span class="logo-name" style="color: green;font-size: 12pt;">AddedSolutions</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header"></li>
+
+                        <li class="dropdown active">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>ACOMPANHAMENTO </span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/instituicao/tecnico/alertas">ALERTAS</a></li>
+                                <li><a class="nav-link" href="/instituicao/tecnico/relatorios">RELATÓRIOS</a></li>
+                                <li class="active"><a class="nav-link" href="/instituicao/tecnico/live">MONITORIZAÇÃO </a></li>
+                            </ul>
+                        </li>
+
+
+
+
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content" style="margin-top: -30px;">
+                <section class="section">
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                <div class="card">
+                                    <div class="body">
+                                        <div id="plist" class="people-list">
+                                            <div class="chat-search">
+                                                <input type="text" class="form-control" placeholder="Utentes" disabled />
+                                            </div>
+                                            <div class="m-b-20">
+                                                <div id="chat-scroll" v-if="utentes.length>0" class="d-none">
+                                                    <ul class="chat-list list-unstyled m-b-0">
+
+                                                        <li v-for="utente in utentes" :key="utente.id" class="clearfix" @click="gdesempenho(utente)" class="list-group-item d-flex justify-content-between align-items-center" style="background: #26273B; color: #fff;">
+                                                            <img :src="utente.foto?utente.foto:'/assets/img/logo.png'" alt="avatar">
+                                                            <div class="about">
+                                                                <div class="name text-white">{{utente.nome}}</div>
+                                                                <div class="status">
+                                                                    <i class="material-icons online">fiber_manual_record</i> online </div>
+                                                            </div>
+
+
+
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
+
+                                <div id="tela" v-if="u[uuidutente].id" class="card d-none">
+                                    <div class="padding-20">
+                                        <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about" role="tab" aria-selected="true">Monitorização</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content tab-bordered" id="myTab3Content">
+                                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab2">
+                                                <div>
+
+                                                    <div class="row m-b-20 ">
+                                                        <div class="col-4">
+
+                                                            <img style="width: 100px;" :src="u[uuidutente].foto?u[uuidutente].foto:'/assets/img/logo.png'" alt="avatar">
+                                                            <div class="about">
+                                                                <div class="name">{{u[uuidutente].nome}}</div>
+                                                            </div>
+                                                            <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#add">+Observação</a>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <h1 class="font-16 mb-4">
+                                                                Ferramenta:{{u[uuidutente].ferramenta}}
+                                                            </h1>
+
+                                                            <div class="row mb-0">
+                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="list-inline text-center">
+                                                                        <div class="list-inline-item p-r-30"><i data-feather="file-text" class="col-green"></i>
+                                                                            <h5 class="m-b-0">{{u[`${uuidutente}_teste_tempo`].length}}</h5>
+                                                                            <p class="text-muted font-14 m-b-0">Nº Jogada</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="list-inline text-center">
+                                                                        <div class="list-inline-item p-r-30"><i data-feather="watch" class="col-orange"></i>
+                                                                            <h5 class="m-b-0">{{u[`${uuidutente}_t`]}}</h5>
+                                                                            <p class="text-muted font-14 m-b-0">Tempo</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="list-inline text-center">
+                                                                        <div class="list-inline-item p-r-30"><i data-feather="layers" class="col-green"></i>
+                                                                            <h5 class="mb-0 m-b-0">{{(u[`${uuidutente}_acertou`]+u[`${uuidutente}_errou`])>0?(u[`${uuidutente}_acertou`]/(u[`${uuidutente}_acertou`]+u[`${uuidutente}_errou`])*100).toFixed(2):0}}%</h5>
+                                                                            <p class="text-muted font-14 m-b-0">Desempenho</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="card-body">
+                                                                    <div class="badges">
+                                                                        <span v-for="item in u[`${uuidutente}_teste_tempo`]" v-bind:class="{ 'badge badge-success': item=='1', 'badge badge-danger': item=='0' }">{{item=='1'?"Acertou":"Errou"}}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else class="card" style="height: 532px;">
+                                    <h1 style="margin-top: 223px; margin-left: 16px; text-align: center;">De momento, nenhuma ferramenta está a ser usada.</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </section>
+
+                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModal">{{utente.nome}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label>Observacao</label>
+                                    <textarea class="form-control" v-model="observacao" required=""></textarea>
+                                </div>
+
+
+                                <form>
+                                    <button type="button" data-dismiss="modal" aria-label="Close" @click="obsCreate($event)" class="btn btn-primary m-t-15 waves-effect w-100">Adicionar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/chat.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/index.js"></script>
+    <script src="/assets/bundles/izitoast/js/iziToast.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/toastr.js"></script>
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+
+    <script src="/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/datatables.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/assets/js/axios.js"></script>
+
+    <script src="/assets/bundles/sweetalert/sweetalert.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/sweetalert.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+
+    <script>
+        let id = '<%= user.intituicao_tecnico.id %>';
+        let username = "dffffffffff"
+
+
+
+
+        const uuidutente = uuid.v4()
+
+        let u = {}
+        u[uuidutente] = {}
+        u[`${uuidutente}_t`] = 0
+        u[`${uuidutente}_teste_tempo`] = []
+        u[`${uuidutente}_teste`] = 0
+        u[`${uuidutente}_errou`] = 0
+        u[`${uuidutente}_acertou`] = 0
+
+
+        let jwt = '<%=jwt %>'
+
+        let user = '<%-JSON.stringify(user)%>'
+        console.log(jwt, id, "---", JSON.parse(user), user)
+        const socket = io({
+            extraHeaders: {
+                Authorization: jwt
+            }
+        });
+
+
+
+
+
+        socket.on(`bem-vindo:${id}`, (data) => {
+            console.log(data)
+            iziToast.info({
+                title: 'MicroAITec!',
+                message: data.message,
+                position: 'topRight'
+            });
+        })
+        var app1 = new Vue({
+            el: '#app',
+            data: {
+                uuidutente,
+                utentes: [],
+                utente: {},
+                u,
+                observacao: "",
+                utente_acertou: 0,
+                testes_tempo: [],
+                utente_errou: 0,
+                utente_teste: 0,
+                utente_t: 0,
+                ferrameta: 0
+            },
+            methods: {
+
+                gdesempenho: async(utente) => {
+                    // console.log(utente.teste,"sss",myChart.data.datasets[0])
+
+                    app1.u[uuidutente] = utente;
+                    app1.u[uuidutente].device = `${app1.u[uuidutente].device}-${uuidutente}`
+                    app1.u[`${uuidutente}_t`] = utente.tempo
+                    app1.u[`${uuidutente}_teste_tempo`] = []
+                    app1.u[`${uuidutente}_teste`] = utente.teste.length
+                    app1.u[`${uuidutente}_errou`] = utente.errou
+                    app1.u[`${uuidutente}_acertou`] = utente.acertou
+
+                    app1.u[uuidutente].teste.forEach((teste, index) => {
+
+                        app1.u[`${uuidutente}_teste_tempo`].push(teste)
+
+                    });
+
+
+                },
+                obsCreate(event) {
+                    event.preventDefault();
+
+                    let obs = {
+
+                        utente: this.utente.id,
+                        descricao: this.observacao,
+
+
+                    }
+
+                    console.log(obs, this.utente.id)
+                    axios
+                        .post('/api/observacaos', {
+                            data: obs,
+
+                        })
+                        .then(({
+                            data
+                        }) => {
+
+                            swal('Observação', 'Ação feita com sucesso!!', 'success').then(() => {
+
+                                $('#add').modal({
+                                    show: false,
+
+                                });
+
+                            });
+
+
+                            console.log(data)
+                        })
+                        .catch(error => {
+                            console.log('An error occurred:', error.response);
+
+                            iziToast.error({
+                                title: '3@Mente!',
+                                message: "Falha ao adicionar a observação",
+                                position: 'topRight'
+                            });
+
+                        });
+
+
+                },
+            },
+            created: async() => {
+
+                document.getElementById('chat-scroll').classList.remove("d-none");
+                document.getElementById('tela').classList.remove("d-none");
+
+
+
+
+            }
+        });
+
+
+
+
+        // Message from server
+
+        function init() {
+            socket.emit('getUtentes', {
+                id
+            });
+        }
+
+        init()
+
+        socket.on(`add:${id}`, (data) => {
+            console.log(data);
+
+            console.log(app1.u)
+
+            let a = false;
+
+            if (data.length > app1.utentes.length) {
+                a = true
+            }
+            app1.utentes = data;
+
+            if (app1.u[uuidutente].id) {
+
+                app1.utentes.map(utente => {
+
+                    if (utente.id == app1.u[uuidutente].id) {
+                        app1.u[uuidutente] = utente;
+                        app1.u[uuidutente].device = `${app1.u[uuidutente].device}-${uuidutente}`
+                        app1.u[`${uuidutente}_t`] = utente.tempo
+                        app1.u[`${uuidutente}_teste_tempo`] = []
+                        app1.u[`${uuidutente}_teste`] = utente.teste.length
+                        app1.u[`${uuidutente}_errou`] = utente.errou
+                        app1.u[`${uuidutente}_acertou`] = utente.acertou
+
+                        app1.u[uuidutente].teste.forEach((teste, index) => {
+
+                            app1.u[`${uuidutente}_teste_tempo`].push(teste)
+
+                        });
+                    }
+                })
+            }
+
+            if (a) {
+                iziToast.info({
+                    title: '3@Mente!',
+                    message: app1.utentes.length > 0 ? `${app1.utentes.length} utentes activo no momento` : 'Nenhum utente activo no momento',
+                    position: 'topRight'
+                });
+
+
+            }
+
+
+
+        });
+
+        console.log(socket, "fffff")
+
+        socket.on(`adds:${id}`, (data) => {
+            console.log(data);
+            app1.utentes = data;
+
+        });
+
+
+        socket.on(`addutente:${id}`, (data) => {
+            console.log(data);
+            app1.utentes.push(data);
+
+        });
+
+        socket.on(`tempo`, () => {
+            console.log("dddddd")
+
+            socket.emit('getUtentes', {
+                id
+            });
+
+
+        });
+
+        socket.on(`edit:${id}`, (data, d) => {
+
+
+            if (d == "fechar") {
+
+                if (app1.u[uuidutente].device == `${data.device}-${uuidutente}`) {
+                    app1.u[uuidutente] = {};
+                    app1.u[`${uuidutente}_t`] = 0
+                    app1.u[`${uuidutente}_teste_tempo`] = []
+                    app1.u[`${uuidutente}_teste`] = 0
+                    app1.u[`${uuidutente}_errou`] = 0
+                    app1.u[`${uuidutente}_acertou`] = 0
+                }
+
+
+                let utentes = []
+
+                app1.utentes.map((u) => {
+
+                    console.log(u, data)
+
+                    if (u.device != `${data.device}-${uuidutente}`) {
+                        utentes.push(u)
+                    }
+
+                })
+
+                app1.utentes = utentes
+
+                iziToast.info({
+                    title: '3@Mente!',
+                    message: `O utente ${data.nome} terminou de fazer o teste!`,
+                    position: 'topRight'
+                });
+
+            }
+
+            app1.utentes.map((u) => {
+
+
+
+
+
+
+                if (`${data.device}-${uuidutente}` == app1.u[uuidutente].device) {
+
+                    if (d == "fechar") {
+                        app1.u[uuidutente] = {};
+                        app1.u[`${uuidutente}_t`] = 0
+                        app1.u[`${uuidutente}_teste_tempo`] = []
+                        app1.u[`${uuidutente}_teste`] = 0
+                        app1.u[`${uuidutente}_errou`] = 0
+                        app1.u[`${uuidutente}_acertou`] = 0
+
+
+                    } else {
+
+                        app1.u[uuidutente] = data;
+                        app1.u[uuidutente].device = `${app1.u[uuidutente].device}-${uuidutente}`
+                        app1.u[`${uuidutente}_t`] = data.tempo
+                        app1.u[`${uuidutente}_teste_tempo`] = []
+                        app1.u[`${uuidutente}_teste`] = data.teste.length
+                        app1.u[`${uuidutente}_errou`] = data.errou
+                        app1.u[`${uuidutente}_acertou`] = data.acertou
+
+                        app1.u[uuidutente].teste.forEach((teste, index) => {
+
+                            app1.u[`${uuidutente}_teste_tempo`].push(teste)
+
+                        });
+
+                    }
+
+                }
+            })
+
+
+        });
+
+        var table = $('#tecnicos').DataTable({
+
+            lengthMenu: [5, 10, 20, 50],
+            "oLanguage": {
+                "sSearch": "Buscar"
+            }
+        });
+
+        $('#tecnicos tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
+
+            $('#exampleModal').modal({
+                show: true,
+
+            });
+        });
+    </script>
+</body>
+
+
+<!-- index.html  21 Nov 2019 03:47:04 GMT -->
+
+</html>

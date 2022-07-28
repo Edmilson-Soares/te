@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "intituicoes",
+  "info": {
+    "singularName": "intituicao",
+    "pluralName": "intituicoes",
+    "displayName": "instituição",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "descricao": {
+      "type": "richtext"
+    },
+    "local": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "contacto": {
+      "type": "string"
+    },
+    "responsaveis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "intituicao_responsavel"
+    },
+    "tecnicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "intituicao_tecnico"
+    },
+    "ferramentas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ferramenta.ferramenta",
+      "mappedBy": "intituicao"
+    },
+    "utentes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::utente.utente",
+      "mappedBy": "instituicao"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "alertas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::alerta.alerta",
+      "mappedBy": "instituicao"
+    }
+  }
+}

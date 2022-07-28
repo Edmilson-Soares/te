@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<%- include('../../header/cliente'); -%>
+    <link rel="stylesheet" href="/assets_microaaitec/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="/assets_microaaitec/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+
+    <style>
+
+    </style>
+
+    <body>
+
+        <div id="app">
+            <div class="main-wrapper main-wrapper-1">
+                <div class="navbar-bg"></div>
+                <nav class="navbar navbar-expand-lg main-navbar sticky bg-micro">
+                    <div class="form-inline mr-auto">
+                        <ul class="navbar-nav mr-3">
+                            <li>
+                                <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"> <i style="color: #E36C4B;" data-feather="align-justify"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                    <i style="color: #E36C4B;" data-feather="maximize"></i>
+                                </a>
+                            </li>
+                            <li style="display: flex;justify-content: center;">
+                                <a class="nav-link nav-link-lg font-18">
+                                    <span class="logo-name text-white">CLIENTE</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav navbar-right">
+
+                        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg"><i style="color: #E36C4B;" data-feather="bell" class="bell"></i>
+</a>
+                            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                                <div class="dropdown-header">
+                                    Notificações
+
+                                </div>
+                                <div class="dropdown-list-content dropdown-list-icons">
+
+
+
+                                    <% user.ntfs.forEach(ntf => { %>
+
+                                        <a href="<%='/cliente/notificacoes/'+ntf.id  %> " class="dropdown-item dropdown-item-unread"> <span class="dropdown-item-icon bg-primary text-white"> <i class="fas
+fa-code"></i>
+</span> <span class="dropdown-item-desc"><%= ntf.titulo %> ! <span class="time"> <%= ntf.createdAt.split("T")[0] %> <%= ntf.createdAt.split("T")[1].split(".")[0] %> </span>
+                                            </span>
+                                        </a>
+                                        <% }); %>
+
+
+                                </div>
+                                <div class="dropdown-footer text-center">
+                                    <a href="/cliente/notificacoes">Ver todos <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<%= user.foto?user.foto.url:"/images/favicon.png" %> "
+class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                            <div class="dropdown-menu dropdown-menu-right pullDown">
+                                <div class="dropdown-title">Olá
+                                    <%= user.username %>
+                                </div>
+                                <a href="/cliente/perfil" class="dropdown-item has-icon"> <i class="far
+fa-user"></i> Perfil
+                                </a>
+                                <a href="/cliente/notificacoes" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i> Notificações
+                                </a>
+                                <a href="/cliente/config" class="dropdown-item has-icon"> <i class="fas fa-cog"></i> Configurações
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="/api/auth/sair" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Sair
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main-sidebar sidebar-style-2 bg-micro">
+                    <aside id="sidebar-wrapper bg-micro">
+                        <div class="sidebar-brand">
+                            <a href="/cliente"> <img alt="image" style="width: 50px;height: auto;" src="/images/favicon.png" class="header-logo" /> <span class="logo-name text-white">MicroAITec</span>
+                            </a>
+                        </div>
+                        <ul class="sidebar-menu bg-micro">
+                            <li class="menu-header">Main</li>
+                            <li class="dropdown ">
+                                <a href="/cliente" class="nav-link "><i data-feather="monitor"></i><span >Dashboard</span></a>
+                            </li>
+                            <li class="dropdown ">
+                                <a href="/cliente/produtos" class="nav-link "><i data-feather="box"></i><span >Produtos</span></a>
+                            </li>
+
+                            <li class="menu-header">Conta</li>
+
+
+                            <li class="dropdown active">
+                                <a href="/cliente/perfil" class="nav-link active1"><i data-feather="user"></i><span>Perfil</span></a>
+                            </li>
+
+                        </ul>
+                    </aside>
+                </div>
+                <!-- Main Content -->
+                <div class="main-content" id="app" style="margin-top: -60px;">
+                    <section class="section ">
+
+                        <div class="section-body">
+                            <div class="row mt-sm-4">
+                                <div class="col-12 col-md-12 col-lg-4">
+                                    <div class="card author-box bg-micro">
+                                        <div class="card-body">
+                                            <div class="author-box-center">
+                                                <img alt="image" src="<%= user.foto?user.foto.url:" /images/favicon.png " %>" class="rounded-circle author-box-picture">
+                                                <div class="clearfix"></div>
+                                                <div class="author-box-name text-white">
+
+                                                    <%= user.username %>
+
+                                                </div>
+                                                <div class="author-box-job text-white">
+                                                    <%= user.nome %>
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="author-box-description">
+                                                    <p class="text-white">
+                                                        <%= user.sobre %>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card bg-micro" style="margin-top: -20px;">
+                                        <div class="card-header">
+                                            <h4 class="text-white">Dados Pessoal</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="py-4">
+                                                <p class="clearfix">
+                                                    <span class="float-left text-white">
+                                                      Data de Nascimento
+                                                    </span>
+                                                    <span class="float-right text-white text-muted">
+                                                      <%= user.data %>
+                                                    </span>
+                                                </p>
+                                                <p class="clearfix">
+                                                    <span class="float-left text-white">
+                                                      Contaco
+                                                    </span>
+                                                    <span class="float-right text-white text-muted">
+                                                      <%= user.contacto %>
+                                                    </span>
+                                                </p>
+                                                <p class="clearfix">
+                                                    <span class="float-left text-white">
+                                                      E-Mail
+                                                    </span>
+                                                    <span class="float-right text-white text-muted">
+                                                    <%= user.email %>
+                                                    </span>
+                                                </p>
+                                                <p class="clearfix">
+                                                    <span class="float-left text-white">
+                                                      Morada
+                                                    </span>
+                                                    <span class="float-right text-white text-muted">
+                                                      <a href="#"> <%= user.morada %></a>
+                                                    </span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-8">
+                                    <div class="card bg-micro">
+                                        <div class="padding-20">
+                                            <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about" role="tab" aria-selected="true">Sobre</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#config" role="tab" aria-selected="false">Configurações</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#ntf" role="tab" aria-selected="false">Notificações</a>
+                                                </li>
+
+                                            </ul>
+                                            <div class="tab-content tab-bordered" id="myTab3Content">
+                                                <div class="tab-pane fade show" id="config" role="tabpanel" aria-labelledby="home-tab2">
+                                                    <div class="row">
+                                                        <div class="col col-6 b-r">
+
+                                                            <input class="form-check-input ml-4" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                            <label class="form-check-label ml-5" for="inlineCheckbox1">Notificações</label>
+                                                        </div>
+
+                                                        <div class="col col-6 b-r">
+
+                                                            <input class="form-check-input ml-4" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                            <label class="form-check-label ml-5" for="inlineCheckbox1">Alerta no email</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <form>
+                                                        <div class="card-body">
+
+
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <label>Senha Actual</label>
+                                                                    <input type="password" v-model="password" class="form-control" required="">
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label>Nova senha</label>
+                                                                    <input type="password" v-model="newpassword" class="form-control" required="">
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label>Confirmação da senha</label>
+                                                                    <input type="password" v-model="passwordConfirmation" class="form-control" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button @click="senha($event)" class="btn btn-primary">Mudar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane fade show" id="ntf" role="tabpanel" aria-labelledby="home-tab2">
+                                                    <table class="table table-striped table-hover text-white" id="ntfd" style="width:100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="color-micro">Título</th>
+                                                                <th class="color-micro">Descrição</th>
+
+                                                                <th class="color-micro">data</th>
+                                                                <th class="color-micro">Opções</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+
+                                                            <% user.ntfs.forEach(ntf => { %>
+                                                                <tr @click="selet('<%= JSON.stringify(ntf)%>')">
+                                                                    <td>
+                                                                        <%= ntf.titulo %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= ntf.descricao %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= ntf.updatedAt.split("T")[0] %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= ntf.name %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }); %>
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab2">
+                                                    <form>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <label>Username</label>
+                                                                        <input type="text" v-model="username" class="form-control" required="">
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <label>Email</label>
+                                                                        <input type="email" v-model="email" class="form-control" required="">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Nome</label>
+                                                                    <input type="text" v-model="nome" class="form-control" required="">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Morada</label>
+                                                                    <input type="text" v-model="morada" class="form-control" required="">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <label>Contacto</label>
+                                                                            <input type="text" v-model="contacto" class="form-control" required="">
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <label>Data</label>
+                                                                            <input type="date" v-model="data" class="form-control">
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+
+                                                                <div class="form-group mb-0">
+                                                                    <label>Sobre</label>
+                                                                    <textarea class="form-control" v-model="sobre" required=""></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <button @click="editar($event)" class="btn btn-primary">Salvar</button>
+                                                            </div>
+                                                    </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </section>
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- General JS Scripts -->
+
+
+            <%- include('../../footer/cliente'); -%>
+
+                <script src="/assets_microaaitec/bundles/datatables/datatables.min.js"></script>
+                <script src="/assets_microaaitec/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                <script src="/assets_microaaitec/bundles/jquery-ui/jquery-ui.min.js"></script>
+                <!-- Page Specific JS File -->
+                <script src="/assets_microaaitec/js/page/datatables.js"></script>
+
+
+                <script>
+                    /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          params.password &&
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      params.newpassword &&
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      params.passwordConfirmation &&
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      params.password === params.passwordConfirmation&&
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      params.email&&
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      params.password !== params.newpassword
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    */
+
+                    let jwt = window.localStorage.getItem("Microaitec-jwt")
+                    let email = "<%= user.email %>"
+                    let id = "<%= user.id %>"
+                    let username = "<%= user.username %>"
+                    let morada = "<%= user.morada %>"
+                    let contacto = "<%= user.contacto %>"
+                    let nome = "<%= user.nome %>"
+                    let sobre = "<%= user.sobre %>"
+                    let data = "<%= user.data %>"
+                    Vue.createApp({
+                        data() {
+                            return {
+                                servico: {},
+                                email,
+                                sobre,
+                                data,
+                                nome,
+                                contacto,
+                                morada,
+                                username,
+                                password: "",
+                                newpassword: "",
+                                passwordConfirmation: ""
+                            }
+                        },
+                        methods: {
+
+                            selet: function(servico) {
+
+                                this.servico = JSON.parse(servico)
+
+                            },
+                            editar(event) {
+                                event.preventDefault();
+
+                                console.log(this.email, this.nome, this.morada, this.contacto, this.sobre, this.data)
+
+
+                                axios
+                                    .put("/api/user/updade", {
+
+                                            "data": {
+                                                "email": this.email,
+                                                "sobre": this.sobre,
+                                                "data": this.data,
+                                                "nome": this.nome,
+                                                "contacto": this.contacto,
+                                                "morada": this.morada,
+                                                "username": this.username,
+                                            },
+
+
+                                        }
+
+
+                                        , {
+                                            headers: {
+                                                "Authorization": `Bearer ${jwt}`
+                                            }
+                                        })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Good Job', 'You clicked the button!', 'success')
+                                            .then((data) => {
+                                                location.reload()
+                                            });
+
+                                        console.log(data)
+
+                                    })
+                                    .catch(error => {
+
+                                        if (error.response.status == '400' || error.response.status == '403' || error.response.status == '500') {
+                                            let err = "Falha ao Realizar o pedido"
+                                            let conteiner = `
+                                              <div class="alert-body" >
+                                                ${err}
+                                              </div>
+
+                                              `
+
+                                            iziToast.error({
+                                                title: 'MicroAITec!',
+                                                message: conteiner,
+                                                position: 'topRight'
+                                            });
+
+                                        }
+                                    });
+
+
+
+                            },
+
+
+                            senha(event) {
+                                event.preventDefault();
+
+                                console.log(this.email, this.password, this.newpassword, this.passwordConfirmation)
+
+
+                                axios
+                                    .post("/api/auth/new_password_conta", {
+
+
+                                            "email": this.email,
+                                            "password": this.password,
+                                            "newpassword": this.newpassword,
+                                            "passwordConfirmation": this.passwordConfirmation
+
+                                        }
+
+
+                                        , {
+                                            headers: {
+                                                "Authorization": `Bearer ${jwt}`
+                                            }
+                                        })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Good Job', 'You clicked the button!', 'success')
+                                            .then((data) => {
+                                                location.reload()
+                                            });
+
+                                        console.log(data)
+
+                                    })
+                                    .catch(error => {
+
+                                        if (error.response.status == '400' || error.response.status == '403' || error.response.status == '500') {
+                                            let err = "Falha ao Realizar o pedido"
+                                            let conteiner = `
+                                              <div class="alert-body" >
+                                                ${err}
+                                              </div>
+
+                                              `
+
+                                            iziToast.error({
+                                                title: 'MicroAITec!',
+                                                message: conteiner,
+                                                position: 'topRight'
+                                            });
+
+                                        }
+                                    });
+
+
+
+                            }
+
+
+                        },
+
+
+                    }).mount('#app');
+
+                    var table = $('#ntfd').DataTable({
+
+                        lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+                        "oLanguage": {
+                            "sSearch": "Buscar"
+                        }
+                    });
+
+                    $('#ntfd tbody').on('click', 'tr', function() {
+                        $(this).toggleClass('selected');
+
+                        $('#exampleModal').modal({
+                            show: true,
+
+                        });
+                    });
+                </script>
+
+    </body>
+
+
+    <!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+
+</html>

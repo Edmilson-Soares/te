@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>AddedSolutions</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel='shortcut icon' type='image/png' href='/assets/img/AddedSolutions.jpg' />
+    <link rel="stylesheet" href="/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body>
+
+    <div>
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+                            <img src="<%= user.intituicao_tecnico.logo.url %>" style="width: 100%;height: 40px;"  alt="" srcset="">
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+
+                                <%= user.intituicao_tecnico.nome %>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<%= user.foto?user.foto[0].url:'/assets/img/logo.png' %> "
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+                            <div class="dropdown-title">Olá
+                                <%= user.username %>
+                            </div>
+                            <a href="/instituicao/tecnico/perfil" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> Perfil
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/auth/logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/"> <img alt="image" src="/assets/img/AddedSolutions.jpg" class="header-logo" /> <span style="color: green;font-size: 12pt;" class="logo-name">AddedSolutions</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header"></li>
+                        <li class="dropdown">
+                            <a href="/instituicao" class="nav-link"><i data-feather="monitor"></i><span>PAINEL DE CONTROLO</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>ACOMPANHAMENTO </span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/instituicao/alertas">ALERTAS</a></li>
+                                <li><a class="nav-link" href="/instituicao/relatorios">RELATÓRIOS</a></li>
+                                <li><a class="nav-link" href="/instituicao/live">MONITORIZAÇÃO </a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown active">
+                            <a href="#" class="menu-toggle nav-link has-dropdown">
+                                <i data-feather="file-text"></i><span>INSTITUIÇÃO</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/instituicao/tecnicos">TÉCNICOS</a></li>
+                                <li class="active"><a class="nav-link" href="/instituicao/utentes">UTENTES</a></li>
+                                <li><a class="nav-link" href="/instituicao/perfil">PERFIL DA INSTITUIÇÃO</a></li>
+                                <li><a class="nav-link" href="/instituicao/arquivos">ARQUIVO</a></li>
+                            </ul>
+
+
+                        </li>
+
+
+
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content" style="margin-top: -60px;">
+
+
+                <section class="section">
+                    <div class="section-body">
+                        <div class="row mt-sm-4">
+                            <div class="col-12 col-md-12 col-lg-4">
+                                <div class="card author-box">
+                                    <div class="card-body">
+                                        <div class="author-box-center">
+                                            <img alt="image" src="<%= user.intituicao_tecnico.utentes[0].img?user.intituicao_tecnico.utentes[0].img[0].url:'/assets/img/logo.png' %>" class="rounded-circle author-box-picture">
+                                            <div class="clearfix"></div>
+                                            <div class="author-box-name">
+                                                <a href="#">
+                                                    <%= user.intituicao_tecnico.utentes[0]?.nome %>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="author-box-description">
+                                                <p>
+                                                    <%= user.intituicao_tecnico.utentes[0]?.observacao %>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Informações Básica</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="py-4">
+                                            <p class="clearfix">
+                                                <span class="float-left">
+                            Data Nascimento
+                          </span>
+                                                <span class="float-right text-muted">
+                            <%= user.intituicao_tecnico.utentes[0]?.data %>
+                          </span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">
+                            RFid
+                          </span>
+                                                <span class="float-right text-muted">
+                            <%= user.intituicao_tecnico.utentes[0]?.rfid %>
+                          </span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">
+                            Género
+                          </span>
+                                                <span class="float-right text-muted">
+                            <%= user.intituicao_tecnico.utentes[0]?.sexo %>
+                          </span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-8">
+                                <div class="card">
+                                    <div class="padding-20">
+
+                                        <div class="tab-content tab-bordered" id="myTab3Content">
+                                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab2">
+                                                <div class="row">
+
+                                                    <div class="col-6">
+
+                                                        <div style="border: 2px solid #cecece;border-radius: 20px; width: 185px;margin-bottom: 20px;">
+                                                            <h3 class="font-20 text-dark text-center">Tempo Total</h3>
+                                                            <h4 class="text-center font-15 text-dark">
+                                                                <%= user.intituicao_tecnico.utentes[0].f.split(',')[12]%> min
+                                                            </h4>
+
+                                                        </div>
+                                                        <h3 class="font-20 text-dark">Taxa de acerto Total</h3>
+                                                        <div id="chart_f1"></div>
+
+
+
+
+                                                        <div id="chart_t1"></div>
+                                                    </div>
+                                                    <div class="col-6" id="app">
+                                                        <div class="section-title">
+                                                            Observações
+
+                                                            <a href="#" class="btn btn-outline-primary mt-2 ml-2" data-toggle="modal" data-target="#addObs">Adicionar </a>
+
+                                                        </div>
+
+
+                                                        <div class="">
+                                                            <div class="body">
+                                                                <div id="plist" class="people-list">
+
+                                                                    <div class="" id="app1">
+                                                                        <div id="chat-scroll" style="max-height: 200px;">
+                                                                            <ul class="chat-list list-unstyled m-b-0">
+
+                                                                                <% user.intituicao_tecnico.utentes[0].observacaos.forEach(function(observacao) { %>
+
+                                                                                    <li @click="selet(<%= JSON.stringify(user.intituicao_tecnico.utentes[0])%>,<%= JSON.stringify(observacao)%>)" data-toggle="modal" data-target="#add" class="clearfix" @click="selet(<%= JSON.stringify(observacao)%>)">
+
+                                                                                        <div class="about">
+                                                                                            <%= observacao.createdAt.split("T")[0] %> -
+                                                                                                <%= observacao.descricao %>
+
+
+                                                                                        </div>
+                                                                                    </li>
+
+
+                                                                                    <% }); %>
+
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% if(user.intituicao_tecnico.utentes[0].alerta){ %>
+                                                        <table class="table table-striped table-hover col-12" id="utentes" style="width:100%;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Ferramenta</th>
+                                                                    <th>Tempo</th>
+                                                                    <th>Taxa de acerto</th>
+                                                                    <th>Data</th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                <% user.intituicao_tecnico.utentes[0].alerta.testes.forEach(function(teste) { %>
+                                                                    <tr>
+
+                                                                        <td>
+
+                                                                            <%= 'F'+teste.f %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= teste.tempo %> min
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= teste.p_acerto.toFixed(2) %> %
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= teste.createdAt.split("T")[0] %>
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                    <% }); %>
+
+
+
+
+
+
+
+                                                            </tbody>
+                                                        </table>
+                                                        <% } else{ %>
+                                                            <h1 class="text-center ml-5">Não há dados da semana!</h1>
+                                                            <% } %>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <div id="add_">
+
+
+        <div class="modal fade" tabindex="-1" id="add" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModal">Observação de {{obs?.createdAt?.split("T")[0]}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" v-model="obs.descricao" required=""></textarea>
+
+
+
+
+                    </div>
+                    <div style="display: flex;justify-content: right;" class="mb-3 mr-4">
+                        <a href="#" class="btn btn-outline-danger w-40 mr-2" class="close" data-dismiss="modal" aria-label="Close">Cancelar</a>
+                        <a href="#" class="btn btn-outline-primary w-40" @click="obsUpdate($event)">Atualizar</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="addObs" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModal">{{utente.nome}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Observacao</label>
+                            <textarea class="form-control h-100" rows="20" cols="50" v-model="observacao" required=""></textarea>
+                        </div>
+
+
+                        <form>
+                            <button type="button" data-dismiss="modal" aria-label="Close" @click="obsCreate($event)" class="btn btn-primary m-t-15 waves-effect w-100">Adicionar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/chat.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/index.js"></script>
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+
+    <script src="/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/datatables.js"></script>
+
+    <script src="/assets/bundles/sweetalert/sweetalert.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/sweetalert.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/assets/js/axios.js"></script>
+
+
+    <script>
+        let DesempenhoUtente = '<%= user.intituicao_tecnico.utentes[0].f%>'
+
+        let utente = '<%- JSON.stringify(user.intituicao_tecnico.utentes[0])%>'
+
+
+        console.log(JSON.parse(utente))
+        console.log(DesempenhoUtente.split(",")[11])
+        var options1 = {
+            series: [parseFloat(DesempenhoUtente.split(",")[11]).toFixed(0)],
+            grid: {
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },
+            },
+            chart: {
+                height: 150,
+                width: 150,
+                type: 'radialBar',
+            },
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        size: '50%',
+                    },
+                    dataLabels: {
+                        name: {
+                            show: false,
+                            color: '#fff'
+                        },
+                        value: {
+                            show: true,
+                            color: '#000',
+                            offsetY: 5,
+                            fontSize: '15px'
+                        }
+                    }
+                }
+            },
+            colors: ['#ecf0f4'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'diagonal1',
+                    shadeIntensity: 1,
+                    gradientToColors: ['#009688'],
+                    inverseColors: false,
+                    opacityFrom: [1, 0.2],
+                    opacityTo: 1,
+                    stops: [0, 100],
+                }
+            },
+            states: {
+                normal: {
+                    filter: {
+                        type: 'none',
+                        value: 0,
+                    }
+                },
+                hover: {
+                    filter: {
+                        type: 'none',
+                        value: 0,
+                    }
+                },
+                active: {
+                    filter: {
+                        type: 'none',
+                        value: 0,
+                    }
+                },
+            }
+        };
+
+        chart1 = new ApexCharts(document.querySelector("#chart_f1"), options1);
+        chart1.render();
+
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+
+
+            },
+            created: function() {
+
+
+            },
+            methods: {
+
+                selet(utente, obs) {
+
+
+
+                    app1.obs = obs
+
+                    console.log(obs)
+
+                },
+            },
+        })
+
+
+
+        let app1 = new Vue({
+            el: "#add_",
+            data: {
+                utente: JSON.parse(utente),
+                observacao: "",
+                obs: {
+
+                }
+
+
+            },
+            created: function() {
+
+
+            },
+            methods: {
+                obsCreate(event) {
+                    event.preventDefault();
+
+                    let obs = {
+
+                        utente: this.utente.id,
+                        descricao: this.observacao,
+
+
+                    }
+
+                    console.log(obs, this.utente.id)
+                    axios
+                        .post('/api/observacaos', {
+                            data: obs,
+
+                        })
+                        .then(({
+                            data
+                        }) => {
+
+                            swal('Observação', 'Ação feita com sucesso!!', 'success').then(() => {
+
+                                $('#addObs').modal({
+                                    show: false,
+
+                                });
+                                location.reload()
+                            });
+
+
+                            console.log(data)
+                        })
+                        .catch(error => {
+                            console.log('An error occurred:', error.response);
+
+                            iziToast.error({
+                                title: '3@Mente!',
+                                message: "Falha ao adicionar a observação",
+                                position: 'topRight'
+                            });
+
+                        });
+
+
+                },
+
+
+
+
+                obsUpdate(event) {
+                    event.preventDefault();
+
+                    swal({
+                            title: 'Tens Certeza que quer atualizar?',
+                            text: '',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+
+                                axios
+                                    .put('/api/observacaos/' + app1.obs.id, {
+                                        data: {
+                                            descricao: this.obs.descricao
+                                        },
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Edição da Observação', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+                                        console.log(data)
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+                                    });
+
+
+                            } else {
+
+                            }
+                        });
+
+
+
+
+
+
+
+
+                },
+
+
+            },
+        })
+
+
+        var table = $('#tecnicos').DataTable({
+
+            lengthMenu: [5, 10, 20, 50],
+            "oLanguage": {
+                "sSearch": "Buscar"
+            }
+        });
+
+        $('#tecnicos tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
+
+            $('#exampleModal').modal({
+                show: true,
+
+            });
+        });
+
+
+
+        var table2 = $('#utentes').DataTable({
+            lengthMenu: [5, 10, 20, 50],
+            "oLanguage": {
+                "sSearch": "Buscar"
+            }
+        });
+
+
+        $('#utentes tbody').on('click', 'tr', () => {
+            $(this).toggleClass('selected');
+
+
+            $('#edit').modal({
+                show: true,
+
+            });
+
+
+        });
+    </script>
+</body>
+
+
+<!-- index.html  21 Nov 2019 03:47:04 GMT -->
+
+</html>

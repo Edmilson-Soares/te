@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ferramentas",
+  "info": {
+    "singularName": "ferramenta",
+    "pluralName": "ferramentas",
+    "displayName": "ferramenta",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "descricao": {
+      "type": "richtext"
+    },
+    "testes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "ferramenta"
+    },
+    "media": {
+      "type": "decimal"
+    },
+    "media_b": {
+      "type": "decimal"
+    },
+    "media_a": {
+      "type": "decimal"
+    },
+    "media_f1": {
+      "type": "decimal"
+    },
+    "media_f2": {
+      "type": "decimal"
+    },
+    "utente_f8": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "ferramenta_8"
+    },
+    "intituicao": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::intituicao.intituicao",
+      "inversedBy": "ferramentas"
+    }
+  }
+}

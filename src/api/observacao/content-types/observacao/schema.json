@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "observacaos",
+  "info": {
+    "singularName": "observacao",
+    "pluralName": "observacaos",
+    "displayName": "observação",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descricao": {
+      "type": "richtext"
+    },
+    "utente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::utente.utente",
+      "inversedBy": "observacaos"
+    }
+  }
+}

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Tempus</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel='shortcut icon' type='image/png' href='/assets/img/AddedSolutions.jpg' />
+    <link rel="stylesheet" href="/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+                            <img src="<%= user.intituicao_responsavel.logo.url %>" style="width: 100%;height: 40px;"  alt="" srcset="">
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-link-lg font-18">
+
+                                <%= user.intituicao_responsavel.nome %>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<%= user.foto?user.foto[0].url:'/assets/img/logo.png' %> "
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+                            <div class="dropdown-title">Olá
+                                <%= user.username %>
+                            </div>
+                            <a href="/instituicao/perfil" class="dropdown-item has-icon"> <i class="far fa-user"></i> Perfil
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/auth/logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/"> <img alt="image" src="/assets/img/AddedSolutions.jpg" class="header-logo" /> <span style="color: blue; font-size: 12pt;" class="logo-name">Tempus</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header"></li>
+                        <li class="dropdown">
+                            <a href="/instituicao" class="nav-link"><i data-feather="monitor"></i><span>PAINEL DE CONTROLO</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>ACOMPANHAMENTO </span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/instituicao/alertas">ALERTAS</a></li>
+                                <li><a class="nav-link" href="/instituicao/relatorios">RELATÓRIOS</a></li>
+                                <li><a class="nav-link" href="/instituicao/live">MONITORIZAÇÃO</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown active">
+                            <a href="#" class="menu-toggle nav-link has-dropdown">
+                                <i data-feather="file-text"></i><span>INSTITUIÇÃO</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/instituicao/tecnicos">TÉCNICOS</a></li>
+                                <li class="active"><a class="nav-link" href="/instituicao/utentes">UTENTES</a></li>
+                                <li><a class="nav-link" href="/instituicao/perfil">PERFIL DA INSTITUIÇÃO</a></li>
+                                <li><a class="nav-link" href="/instituicao/arquivos">ARQUIVO</a></li>
+                            </ul>
+
+
+                        </li>
+
+
+
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content" style="margin-top: -30px;">
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header" style="display: flex;justify-content: space-between;align-items: center;">
+                            <h4>Lista dos Utentes</h4>
+                            <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#add">Adicionar</a>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="utentes" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Nome</th>
+                                            <th>Características</th>
+                                            <th>Género</th>
+                                            <th>Idade</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <% user.intituicao_responsavel.utentes.forEach(function(utente) { %>
+                                            <tr @click="selet(<%= JSON.stringify(utente)%>)">
+                                                <td>
+                                                    <img style="width: 30px;height: 30px;" alt="image" src="<%= utente.img?utente.img[0].url:'/assets/img/logo.png' %> " class="user-img-radious-style">
+                                                </td>
+                                                <td>
+                                                    <%= utente.nome %>
+                                                </td>
+                                                <td>
+                                                    <%= utente.observacao %>
+                                                </td>
+                                                <td>
+                                                    <%= utente.sexo %>
+                                                </td>
+                                                <td>
+                                                    <%= utente.data?`${(ano-parseInt(utente.data.split('-')[0]))} anos`:utente.data %>
+                                                </td>
+
+                                            </tr>
+
+
+                                            <% }); %>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModal">Utente</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" v-model="nome">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-4">
+                                        <label>RFid</label>
+                                        <input type="text" class="form-control" v-model="rfid">
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <label>Data Nascimento</label>
+                                        <input type="date" class="form-control" v-model="data" required>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Género</label>
+                                        <select class="form-control" v-model="sexo">
+                      <option>M</option>
+                      <option>F</option>
+                    </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Características do utente</label>
+                                    <textarea class="form-control" v-model="observacao" required=""></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Carregar foto</label>
+                                    <input name="file" class="form-control" @change="processFile($event)" type="file" multiple />
+                                </div>
+                                <form>
+                                    <button type="button" @click="utenteCreate($event)" class="btn btn-primary m-t-15 waves-effect w-100">Adicionar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" id="edit" tabindex="-2" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mr-3" id="formModal">Utente</h5>
+                                <a v-bind:href="'/instituicao/utentes/'+ utente.id" class="btn btn-outline-primary mr-2">Ver o perfil</a>
+                                <a href="#" @click="eliminar" class="btn btn-outline-danger mr-2">Eliminar</a>
+                                <a href="#" class="btn btn-outline-primary" @click="utenteUpdate_arquivar($event)">Arquivar</a>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" v-model="utente.nome">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-4">
+                                        <label>RFid</label>
+                                        <input type="text" class="form-control" v-model="utente.rfid">
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <label>Data Nascimento</label>
+                                        <input type="date" class="form-control" v-model="utente.data">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Género</label>
+                                        <select class="form-control" v-model="utente.sexo">
+                                          <option>M</option>
+                                          <option>F</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-9">
+                                        <label>Características do utente</label>
+                                        <textarea class="form-control" v-model="utente.observacao" required=""></textarea>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Observação</label>
+                                        <a href="#" class="btn btn-outline-primary mt-2" data-toggle="modal" data-target="#addObs">Adicionar </a>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-9">
+                                        <label>Carregar foto</label>
+                                        <input name="file" accept=".png,.jpeg,jpg" @change="processFile($event)" class="form-control" type="file" multiple />
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Fotos</label>
+                                        <button type="button" data-toggle="modal" data-target="#foto" class="btn btn-primary waves-effect w-100">Escolher</button>
+                                    </div>
+
+                                </div>
+                                <form>
+                                    <button type="button" @click="utenteUpdate($event)" class="btn btn-primary m-t-15 waves-effect w-100">Salvar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="foto" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModal">Minhas Fotos</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                            </div>
+                            <div class="modal-body" v-if="utente.img">
+
+
+
+
+
+                                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+
+
+                                    <ol class="carousel-indicators">
+                                        <li v-for="(item,index) in utente.img" :key="item.id" data-target="#carouselExampleIndicators2" :data-slide-to="index" v-bind:class="[index==0? 'active' : '']"> </li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+
+
+                                        <div class="carousel-item" v-for="(item,index) in utente.img" :key="item.id" v-bind:class="[index==0? 'active' : '']">
+                                            <img class="d-block w-100" :src="item.url" alt="First slide" style="height: 300px;">
+                                            <div class="carousel-caption d-md-block" style="display: flex;justify-content: space-between;">
+                                                <a href="#" class="btn btn-outline-danger mr-1" @click="selectFotoEliminar(item)">Eliminar</a>
+                                                <a href="#" class="btn btn-outline-primary" @click="selectFoto(item)">Definir como perfil</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+
+                                        <i class="carousel-control-prev-icon" data-feather="chevron-left" aria-hidden="true"></i>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                                        <i class="carousel-control-next-icon" data-feather="chevron-right" aria-hidden="true"></i>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" id="addObs" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModal">{{utente.nome}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label>Observacao</label>
+                                    <textarea class="form-control" v-model="observacao" required=""></textarea>
+                                </div>
+
+
+                                <form>
+                                    <button type="button" data-dismiss="modal" aria-label="Close" @click="obsCreate($event)" class="btn btn-primary m-t-15 waves-effect w-100">Adicionar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- General JS Scripts -->
+    <script src="/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/index.js"></script>
+    <!-- Template JS File -->
+    <script src="/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/assets/js/custom.js"></script>
+
+    <script src="/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/datatables.js"></script>
+
+    <script src="/assets/bundles/sweetalert/sweetalert.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="/assets/js/page/sweetalert.js"></script>
+
+    <script src="/assets/js/vue.js"></script>
+    <script src="/assets/js/axios.js"></script>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+
+
+    <script>
+        let id_instituicao = '<%= user.intituicao_responsavel.id %>'
+
+        let id = '<%= user.intituicao_responsavel.id %>';
+        let username = "dffffffffff"
+
+
+
+
+        let jwt = '<%=jwt %>'
+
+        let user = '<%-JSON.stringify(user)%>'
+        console.log(jwt, id, "---", JSON.parse(user), user)
+        const socket = io({
+            extraHeaders: {
+                Authorization: jwt
+            }
+        });
+
+        console.log(id)
+
+        socket.on(`bem-vindo:${id}`, (data) => {
+            console.log(data)
+            iziToast.info({
+                title: 'MicroAITec!',
+                message: data.message,
+                position: 'topRight'
+            });
+        })
+
+
+
+        socket.on(`addUtente:${id}`, (data) => {
+
+            app.selet(data)
+
+            $('#edit').modal({
+                show: true,
+
+            });
+
+        });
+        const app = Vue.createApp({
+            data() {
+                return {
+                    nome: '',
+                    observacao: "",
+                    data: "",
+                    sexo: "M",
+                    rfid: "",
+                    arquivo: [],
+                    idade: '',
+                    utente: {
+
+                    }
+
+                }
+            },
+            methods: {
+                processFile(event) {
+                    this.arquivo = event.target.files
+                    console.log(this.arquivo)
+                },
+                obsCreate(event) {
+                    event.preventDefault();
+
+                    let obs = {
+
+                        utente: this.utente.id,
+                        descricao: this.observacao,
+
+
+                    }
+
+                    console.log(obs, this.utente.id)
+                    axios
+                        .post('/api/observacaos', {
+                            data: obs,
+
+                        })
+                        .then(({
+                            data
+                        }) => {
+
+                            swal('Observação', 'Ação feita com sucesso!!', 'success').then(() => {
+
+                                $('#add').modal({
+                                    show: false,
+
+                                });
+
+                            });
+
+
+                            console.log(data)
+                        })
+                        .catch(error => {
+                            console.log('An error occurred:', error.response);
+                            swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                //location.reload()
+                            });
+
+                        });
+
+
+                },
+
+                uploadFoto(event) {
+                    event.preventDefault();
+
+                    let formData = new FormData();
+
+                    Array.from(this.arquivo).forEach(image => {
+
+                        formData.append('files', image);
+                        console.log(formData, image)
+                    });
+
+                    if (this.arquivo.length) {
+                        axios.post(`/api/upload`, formData)
+                            .then(async res1 => {
+
+                                let fotos = []
+                                fotos.push(res1.data[0].id)
+
+                                if (this.utente.img) {
+                                    this.user.img.map(foto => {
+                                        fotos.push(foto.id)
+                                    })
+                                }
+
+                                axios.put(`/api/instituicao/utentes/${this.utente.id}`, {
+                                        foto: fotos
+                                    })
+                                    .then(response => {
+                                        console.log(response.data);
+                                        location.reload()
+                                    }).catch(function(error) {
+                                        console.log(error);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+
+                                    });
+
+                            }).catch(function(error) {
+                                console.log("ffff", error);
+                                swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                    //location.reload()
+                                });
+                            })
+
+                    }
+                },
+
+                selet(utente) {
+
+
+                    this.utente = utente
+                    console.log(utente)
+
+                },
+                selectFoto(foto) {
+                    //  this.user=user
+
+                    let fotos = []
+                    fotos.push(foto.id)
+
+                    this.utente.img.map((fot) => {
+
+                        if (foto.id != fot.id) {
+                            fotos.push(fot.id)
+                        }
+                    })
+
+                    axios.put(`/api/instituicao/utentes/${this.utente.id}`, {
+                            data: {
+                                img: fotos
+                            }
+                        })
+                        .then(response => {
+                            console.log(response.data);
+                            location.reload()
+                        }).catch(function(error) {
+                            console.log(error);
+                            swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                //location.reload()
+                            });
+
+                        });
+
+                    console.log(fotos)
+                },
+                selectFotoEliminar(foto) {
+
+                    console.log(foto)
+
+
+                    swal({
+                            title: 'Are you sure you want to delete?',
+                            text: 'Yes or No?',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                axios.delete(`/api/upload/files/${foto.id}`)
+                                    .then(response => {
+                                        console.log(response.data);
+                                        swal('Good Job', 'Photo deleted successfully!', 'success').then(() => {
+                                            location.reload()
+
+                                        })
+
+
+                                    }).catch(function(error) {
+                                        console.log(error);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+
+                                    });
+                            } else {
+                                swal('Photo not deleted successfully!');
+                            }
+                        });
+
+
+                },
+                eliminar() {
+                    swal({
+                            title: 'Tens Certeza que queres eliminar?',
+                            text: '',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+
+                                axios
+                                    .delete('/api/instituicao/utentes/' + this.utente.id)
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Edição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+                                        console.log(data)
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+                                    });
+
+                            } else {
+
+                            }
+                        });
+                },
+                utenteCreate(event) {
+
+                    event.preventDefault();
+                    let formData = new FormData();
+
+                    Array.from(this.arquivo).forEach(image => {
+
+                        formData.append('files', image);
+                        console.log(formData, image)
+                    });
+
+
+
+                    let utente = {
+
+                        nome: this.nome,
+                        observacao: this.observacao,
+                        data: this.data.length ? this.data : "01/01/2000",
+                        sexo: this.sexo,
+                        rfid: this.rfid,
+                        instituicao: [parseInt(id_instituicao)],
+                        "f": "0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "f1": "0,0,0,0",
+                        "f2": "0,0,0,0",
+                        "f3": "0,0,0,0",
+                        "f4": "0,0,0,0",
+                        "f5": "0,0,0,0",
+                        "f6": "0,0,0,0",
+                        "f7": "0,0,0,0",
+                        "f8": "0,0,0,0",
+                        "f9": "0,0,0,0",
+                        "f10": "0,0,0,0",
+                        "f11": "0,0,0,0",
+
+                    }
+
+
+
+
+
+                    if (this.arquivo.length) {
+                        axios.post(`/api/upload/`, formData)
+                            .then(async res1 => {
+
+
+
+
+                                utente.img = res1.data[0].id
+
+                                console.log(utente)
+
+
+                                axios
+                                    .post('/api/utentes', {
+                                        data: utente,
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Adição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+
+                                        console.log(data)
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+
+
+                                        // data
+                                    });
+
+
+                                // not1("Arquivo carregado")
+                            }).catch(error => {
+                                console.log(utente)
+                                console.log(error)
+
+                                axios
+                                    .post('/api/utentes', {
+                                        data: utente,
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Adição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+
+                                        console.log(data)
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+                                    });
+
+                            });
+                    } else {
+                        axios
+                            .post('/api/utentes', {
+                                data: utente,
+
+                            })
+                            .then(({
+                                data
+                            }) => {
+
+                                swal('Adição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                    location.reload()
+                                });
+
+
+                                console.log(data)
+                            })
+                            .catch(error => {
+                                console.log('An error occurred:', error.response);
+
+                                swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                    //location.reload()
+                                });
+                            });
+
+
+
+
+
+
+                    }
+
+
+
+
+                },
+                utenteUpdate(event) {
+                    event.preventDefault();
+                    let formData = new FormData();
+
+                    Array.from(this.arquivo).forEach(image => {
+
+                        formData.append('files', image);
+                        console.log(formData, image)
+                    });
+
+
+
+                    if (this.arquivo.length) {
+                        axios.post(`/api/upload/`, formData)
+                            .then(async res1 => {
+
+                                let fotos = []
+                                fotos.push(res1.data[0].id)
+
+                                if (this.utente.img) {
+                                    this.utente.img.map((fot) => {
+
+
+                                        fotos.push(fot.id)
+
+                                    })
+                                }
+
+
+
+                                axios
+                                    .put('/api/instituicao/utentes/' + this.utente.id, {
+                                        data: {
+                                            nome: this.utente.nome,
+                                            observacao: this.utente.observacao,
+                                            data: this.utente.data,
+                                            sexo: this.utente.sexo,
+                                            rfid: this.utente.rfid,
+                                            img: fotos
+                                        },
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Edição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+                                        // console.log(data, "2222")
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+                                    });
+
+
+                                // not1("Arquivo carregado")
+                            }).catch(error => {
+
+                                swal('Edição de Utente', 'Aeee!!', 'success').then(() => {
+                                    location.reload()
+                                });
+                                axios
+                                    .put('/api/instituicao/utentes/' + this.utente.id, {
+                                        data: {
+                                            nome: this.utente.nome,
+                                            observacao: this.utente.observacao,
+                                            data: this.utente.data,
+                                            sexo: this.utente.sexo,
+                                            rfid: this.utente.rfid
+
+                                        },
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Edição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+                                        //  console.log(data, "ddd")
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+                                    });
+
+                            });
+                    } else {
+                        axios
+                            .put('/api/instituicao/utentes/' + this.utente.id, {
+                                data: {
+                                    nome: this.utente.nome,
+                                    observacao: this.utente.observacao,
+                                    data: this.utente.data,
+                                    sexo: this.utente.sexo,
+                                    rfid: this.utente.rfid
+
+                                },
+
+                            })
+                            .then(({
+                                data
+                            }) => {
+
+                                swal('Edição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                    location.reload()
+                                });
+
+                                console.log(data)
+                            })
+                            .catch(error => {
+                                console.log('An error occurred:', error.response);
+                                swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                    //location.reload()
+                                });
+                            });
+
+
+
+
+
+
+                    }
+
+
+
+
+
+                },
+                utenteUpdate_arquivar(event) {
+                    event.preventDefault();
+
+
+
+
+                    swal({
+                            title: 'Tens Certeza que queres arquivar?',
+                            text: '',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willSave) => {
+                            if (willSave) {
+                                axios
+                                    .put('/api/instituicao/utentes/' + this.utente.id, {
+                                        data: {
+                                            arquivar: true
+                                        },
+
+                                    })
+                                    .then(({
+                                        data
+                                    }) => {
+
+                                        swal('Edição de Utente', 'Ação feita com sucesso!!', 'success').then(() => {
+                                            location.reload()
+                                        });
+
+                                        console.log(data)
+                                    })
+                                    .catch(error => {
+                                        console.log('An error occurred:', error.response);
+                                        swal('Adição de Utente', error.response.data.error.message, 'warning').then(() => {
+                                            //location.reload()
+                                        });
+                                    });
+
+                            } else {
+
+                            }
+                        });
+
+
+
+
+
+
+
+
+
+
+                }
+            },
+        }).mount('#app');
+
+
+
+
+
+
+
+
+        console.log(id_instituicao)
+        var table = $('#utentes').DataTable({
+            lengthMenu: [10, 20, 30, 50],
+            "oLanguage": {
+                "sSearch": "Buscar"
+            }
+        });
+
+
+        $('#utentes tbody').on('click', 'tr', () => {
+            $(this).toggleClass('selected');
+
+
+            $('#edit').modal({
+                show: true,
+
+            });
+
+
+        });
+    </script>
+</body>
+
+
+<!-- /instituicao/utentes -->
+
+</html>

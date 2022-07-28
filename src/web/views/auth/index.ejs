@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<%- include('../header/auth'); -%>
+
+    <body>
+
+        <div id="app">
+
+            <section class="section">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <a class="text-center" style="margin-left: 94px;" href="/">AddedSolutions</a>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action="#" class="needs-validation" novalidate="">
+                                        <div class="form-group">
+                                            <label for="email">Email ou Nome do Usuário</label>
+                                            <input id="email" type="text" class="form-control" v-model="identifier" name="email" tabindex="1" required autofocus>
+                                            <div class="invalid-feedback">
+                                                Por favor, preencha seu e-mail
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="d-block">
+                                                <label for="password" class="control-label">Senha</label>
+                                                <div class="float-right">
+                                                    <a href="/auth/forgot_password" class="text-small">
+                                                        Esqueci a senha?
+                        </a>
+                                                </div>
+                                            </div>
+                                            <input id="password" v-model="password" type="password" class="form-control" name="password" tabindex="2" required>
+                                            <div class="invalid-feedback">
+                                                Por favor preencha sua senha
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="remember" class="custom-control-input" abindex="3" id="remember-me">
+                                                <label class="custom-control-label" style="color: #6777ef;" for="remember-me">Lembre mim</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button @click="login($event)" type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                     - Entrar -
+                    </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- General JS Scripts -->
+
+
+        <%- include('../footer/auth'); -%>
+
+
+            <script>
+                Vue.createApp({
+                    data() {
+                        return {
+                            identifier: '',
+                            password: ""
+                        }
+                    },
+                    methods: {
+                        login(event) {
+                            event.preventDefault();
+                            axios
+                                .post('/api/auth/login_v4', {
+                                    identifier: this.identifier,
+                                    password: this.password,
+                                })
+                                .then(({
+                                    data
+                                }) => {
+                                    localStorage.setItem('Microaitec-jwt', data.jwt)
+
+                                    console.log(data)
+                                    window.location.href = "/instituicao"
+                                })
+                                .catch(error => {
+                                    // Handle error.
+                                    //err1.innerHTML=""
+                                    //window.location.href="/auth/login"
+                                    console.log('An error occurred:', error.response);
+
+                                    if (error.response.status == '400') {
+                                        let err = "As Credências Incorretas"
+                                        let conteiner = `
+                                                      <div class="alert-body" >
+                                                        ${err}
+                                                      </div>
+
+                                                      `
+
+                                        iziToast.error({
+                                            title: 'Tempus!',
+                                            message: conteiner,
+                                            position: 'topRight'
+                                        });
+
+                                    }
+                                });
+                        }
+                    },
+                }).mount('#app');
+            </script>
+
+    </body>
+
+
+    <!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+
+</html>

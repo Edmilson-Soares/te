@@ -1,0 +1,172 @@
+{
+  "kind": "collectionType",
+  "collectionName": "utentes",
+  "info": {
+    "singularName": "utente",
+    "pluralName": "utentes",
+    "displayName": "utente",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "rfid": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "observacao": {
+      "type": "richtext"
+    },
+    "testes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente"
+    },
+    "img": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ferramenta_1": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f1"
+    },
+    "ferramenta_2": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f2"
+    },
+    "ferramenta_3": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f3"
+    },
+    "ferramenta_4": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f4"
+    },
+    "ferramenta_5": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f5"
+    },
+    "ferramenta_8": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ferramenta.ferramenta",
+      "mappedBy": "utente_f8"
+    },
+    "ferramenta_6": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f6"
+    },
+    "ferramenta_7": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f7"
+    },
+    "ferramenta_9": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f9"
+    },
+    "ferramenta_10": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_f10"
+    },
+    "ferramenta_11": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::teste.teste",
+      "mappedBy": "utente_11"
+    },
+    "f1": {
+      "type": "string"
+    },
+    "f2": {
+      "type": "string"
+    },
+    "f3": {
+      "type": "string"
+    },
+    "f4": {
+      "type": "string"
+    },
+    "f5": {
+      "type": "string"
+    },
+    "f6": {
+      "type": "string"
+    },
+    "f7": {
+      "type": "string"
+    },
+    "f8": {
+      "type": "string"
+    },
+    "f9": {
+      "type": "string"
+    },
+    "f10": {
+      "type": "string"
+    },
+    "f11": {
+      "type": "string"
+    },
+    "f": {
+      "type": "string"
+    },
+    "data": {
+      "type": "date"
+    },
+    "instituicao": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::intituicao.intituicao",
+      "inversedBy": "utentes"
+    },
+    "sexo": {
+      "type": "string"
+    },
+    "arquivar": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "observacaos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::observacao.observacao",
+      "mappedBy": "utente"
+    },
+    "alerta": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::alerta.alerta",
+      "inversedBy": "utentes"
+    }
+  }
+}
